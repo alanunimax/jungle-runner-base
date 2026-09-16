@@ -1,0 +1,5 @@
+@startuml
+class Obstaculo 
+class Tronco 
+Obstaculo <|-- Tronco 
+@enduml

@@ -1,0 +1,23 @@
+@startuml classes_jungle
+set namespaceSeparator none
+class "Cobra" as obstaculos.Cobra {
+  desenhar(tela, camera_x)
+}
+class "Fogo" as obstaculos.Fogo {
+  contador : int
+  atualizar()
+  desenhar(tela, camera_x)
+}
+class "Obstaculo" as obstaculos.Obstaculo {
+  perigoso
+  rect
+  {abstract}atualizar()
+  {abstract}desenhar(tela, camera_x)
+}
+class "Tronco" as obstaculos.Tronco {
+  desenhar(tela, camera_x)
+}
+obstaculos.Cobra --|> obstaculos.Obstaculo
+obstaculos.Fogo --|> obstaculos.Obstaculo
+obstaculos.Tronco --|> obstaculos.Obstaculo
+@enduml

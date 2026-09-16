@@ -1,0 +1,103 @@
+@startuml classes_jungle_runner_base
+' Jungle Runner (versão base) - Diagrama de classes
+' UniFAJ/UniMAX - Projeto Prático Integrado
+'
+' Legenda:
+'   <|--  herança      ("é um")
+'   *--   composição   ("tem um"  - o Jogo cria e é dono do objeto)
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam class {
+    BackgroundColor #FFFFFF
+    BorderColor #1B2A49
+    ArrowColor #1B2A49
+    FontColor #1B2A49
+}
+skinparam package {
+    BackgroundColor #F7F3E8
+    BorderColor #C9A227
+    FontColor #1B2A49
+}
+skinparam note {
+    BackgroundColor #FFF8DC
+    BorderColor #C9A227
+}
+
+package "src" {
+
+    class Jogo {
+        - jogador : Jogador
+        - obstaculos : list[Obstaculo]
+        - ponte : Ponte
+        + executar()
+        - _checar_colisoes()
+    }
+
+    package "entidades" {
+
+        class Jogador {
+            + rect : pygame.Rect
+            + vidas : int
+            + pular()
+            + atualizar()
+            + desenhar(tela)
+        }
+
+        class Obstaculo {
+            + rect : pygame.Rect
+            + perigoso : bool
+            + atualizar()
+            + desenhar(tela)
+        }
+
+        class Tronco {
+            + desenhar(tela)
+        }
+
+        class Cobra {
+            + desenhar(tela)
+        }
+
+        class Fogo {
+            + atualizar()
+            + desenhar(tela)
+        }
+
+        class Ponte {
+            + largura_tabua : int
+            + largura_vao : int
+            + tabuas : list[pygame.Rect]
+            + desenhar(tela)
+        }
+    }
+}
+
+' ---------- HERANÇA (única hierarquia do projeto) ----------
+Obstaculo <|-- Tronco
+Obstaculo <|-- Cobra
+Obstaculo <|-- Fogo
+
+' ---------- COMPOSIÇÃO (o Jogo é dono dos atores) ----------
+Jogo *-- "1" Jogador
+Jogo *-- "1" Ponte
+Jogo *-- "0..*" Obstaculo
+
+note right of Obstaculo
+  Classe base: define o que TODO
+  obstáculo tem e faz.
+  Tronco, Cobra e Fogo herdam e
+  sobrescrevem só o que muda
+  (polimorfismo).
+end note
+
+note bottom of Jogo
+  jogo.py chama obs.atualizar() e
+  obs.desenhar() para cada item da
+  lista sem perguntar o tipo.
+  cenario.py e hud.py não têm classes:
+  são apenas funções.
+end note
+
+@enduml
