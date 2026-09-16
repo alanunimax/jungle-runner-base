@@ -1,5 +1,5 @@
 """
-Selva Runner - Exemplo Simples
+Selva Runner Base - Exemplo Simples
 UniFAJ/UniMAX - Projeto Prático Integrado (POO + Desenvolvimento de Aplicativos)
 
 Versão enxuta, feita para explicar em aula:
